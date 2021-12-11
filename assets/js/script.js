@@ -1,75 +1,146 @@
-// Assignment Code
-var generateBtn = document.querySelector("#generate");
 
-// Write password to the #password input
-function writePassword() {
-    // GIVEN I need a new, secure password
-    var password = generatePassword();
-    var passwordText = document.querySelector("#password");
 
-    passwordText.value = password;
+// Start working code
+// User input variables: 
+var enter;
+var confirmNumber;
+var confirmCharacter;
+var confirmUppercase;
+var confirmLowercase;
+// Start Password variable values: 
+// Special characters 
+character = ["!", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", "\:", "\;", " < ", "=", " > ", " ? ", "@", "[", "\\", "]", " ^ ", "_", "`", "{", "|", "}", "~"];
+// Numeric characters
+number = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+// Alphabetical characters
+alpha = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+// Space is for the Uppercase conversion
+space = [];
+// Choices declared outside the if statement so they can be concatenated upon condition
+var choices;
+// converts letters to uppercase 
+var toUpper = function (x) {
+    return x.toUpperCase();
+};
+// creates a variable for uppercase conversion
+alpha2 = alpha.map(toUpper);
+
+var get = document.querySelector("#generate");
+
+get.addEventListener("click", function () {
+    ps = generatePassword();
+    document.getElementById("password").placeholder = ps;
+});
+
+// Start function to generate password
+function generatePassword() {
+    // Asks for user input
+    enter = parseInt(prompt("How many characters would you like your password? Choose between 8 and 128"));
+    // First if statement for user validation 
+    if (!enter) {
+        alert("This needs a value");
+    } else if (enter < 8 || enter > 128) {
+        // Validates user input
+        // Start user input prompts
+        enter = parseInt(prompt("You must choose between 8 and 128"));
+
+    } else {
+        // Continues once user input is validated
+        confirmNumber = confirm("Will this contain numbers?");
+        confirmCharacter = confirm("Will this contain special characters?");
+        confirmUppercase = confirm("Will this contain Uppercase letters?");
+        confirmLowercase = confirm("Will this contain Lowercase letters?");
+    };
+
+    // Else if for 4 negative options
+    if (!confirmCharacter && !confirmNumber && !confirmUppercase && !confirmLowercase) {
+        choices = alert("You must choose a criteria!");
+
+    }
+    // First if statement that uses user input prompts to determine choices
+    // Else if for 4 positive options
+    else if (confirmCharacter && confirmNumber && confirmUppercase && confirmLowercase) {
+
+        choices = character.concat(number, alpha, alpha2);
+    }
+    // Else if for 3 positive options
+    else if (confirmCharacter && confirmNumber && confirmUppercase) {
+        choices = character.concat(number, alpha2);
+    }
+    else if (confirmCharacter && confirmNumber && confirmLowercase) {
+        choices = character.concat(number, alpha);
+    }
+    else if (confirmCharacter && confirmLowercase && confirmUppercase) {
+        choices = character.concat(alpha, alpha2);
+    }
+    else if (confirmNumber && confirmLowercase && confirmUppercase) {
+        choices = number.concat(alpha, alpha2);
+    }
+    // Else if for 2 positive options 
+    else if (confirmCharacter && confirmNumber) {
+        choices = character.concat(number);
+
+    } else if (confirmCharacter && confirmLowercase) {
+        choices = character.concat(alpha);
+
+    } else if (confirmCharacter && confirmUppercase) {
+        choices = character.concat(alpha2);
+    }
+    else if (confirmLowercase && confirmNumber) {
+        choices = alpha.concat(number);
+
+    } else if (confirmLowercase && confirmUppercase) {
+        choices = alpha.concat(alpha2);
+
+    } else if (confirmNumber && confirmUppercase) {
+        choices = number.concat(alpha2);
+    }
+    // Else if for 1 positive option
+    else if (confirmCharacter) {
+        choices = character;
+    }
+    else if (confirmNumber) {
+        choices = number;
+    }
+    else if (confirmLowercase) {
+        choices = alpha;
+    }
+    // Created space variable to fill uppercase conversion
+    else if (confirmUppercase) {
+        choices = space.concat(alpha2);
+    };
+
+    // password variable is an array placeholder for user generated amount of length
+    var password = [];
+
+    // Start random selection variables:
+    // Random selection for all variables: 
+    for (var i = 0; i < enter; i++) {
+        var pickChoices = choices[Math.floor(Math.random() * choices.length)];
+        password.push(pickChoices);
+    }
+    // This joins the password array and converts it to a string
+    // Worked with a tutor to incorporate this option
+    var ps = password.join("");
+    UserInput(ps);
+    return ps;
+}
+// This puts the password value into the textbox
+// Changed function input to use textcontent
+function UserInput(ps) {
+    document.getElementById("password").textContent = ps;
+
 }
 
-function generatePassword () {
-    // prompt for the length of the password
-    var passLength = prompt("Please enter how many characters you would like your password to be. \nMust be between 8 - 128 characters.");
-    
-    var lengthConfirm = parseInt(passLength);
-    console.log(lengthConfirm);
- 
-// choose a length of at least 8 characters and no more than 128 characters
-    if (passLength < 8 || passLength > 128 || isNaN(passLength)) {
-        alert ("Error. Choice is not valid. Please try again.");
-        return;
-    }
-
-var collectionOfValids = [];
-var upperCaseChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" .split("");
-var lowerCaseChar = "abcdefghiklmnopqrsttuvwxtz" .split("");
-var numberChar = "0123456789" .split ("");
-var specialChar = "*&^%$#@!?><{}" .split("");
-
-
-// we need a confirm to ask the user if they want to use lowercase
-var lowerCaseConfirm = confirm("Do you want your password to include lowercase letters?");
-    if(lowerCaseConfirm === true) {
-        for (var i = 0; i < lowerCaseChar.length; i++) {
-            collectionOfValids.push(lowerCaseChar[i]);
-        }
-    }
-// we need a confirm to ask the user if they want to use uppercase
-var upperCaseConfirm = confirm("Do you want your password to include uppercase letters?");
-    if (upperCaseConfirm === true) {
-        for (var i = 0; i < upperCaseChar.length; i++) {
-            collectionOfValids.push(upperCaseChar[i]);
-        }
-    }
-// we need a confirm to ask the user if they want to use numeric
-var numberConfirm = confirm("Do you want your password to include numbers");
-    if (numberConfirm === true) {
-        for (var i = 0; i < numberChar.length; i++) {
-            collectionOfValids.push(numberChar[i]);
-        }
-    }
-// we need a confirm to ask the user if they want to use special characters    
-var specialConfirm = confirm("Do you want your password to include special characters?");
-    if (specialConfirm === true) {
-        for (var i = 0; i < specialChar.length; i++) {
-            collectionOfValids.push(specialChar[i]);
-        }
-    }
-
-// using the number from above and the 4 booleans, create password
- var randomPassword = "";
- for (var i = 0; i < lengthConfirm; i++) {
-     collectionOfValids[
-         Math.floor(Math.random() * collectionOfValids.length)];
-     randomPassword +=
-        collectionOfValids[
-            Math.floor(Math.random() * collectionOfValids.length)
-        ];
-    }
- return randomPassword;
+var copy = document.querySelector("#copy");
+copy.addEventListener("click", function () {
+    copyPassword();
+});
+// This copies the password value - works
+// Code example demonstrated in a youtube video: 
+// Source: https://youtu.be/9sT03jEwcaw
+function copyPassword() {
+    document.getElementById("password").select();
+    document.execCommand("Copy");
+    alert("Password copied to clipboard!");
 }
-
-generateBtn.addEventListener("click", writePassword);

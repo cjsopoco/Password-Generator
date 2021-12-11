@@ -45,7 +45,7 @@ var generatePassword = function() {
       } else if (userInput) {
                 // Continue with the application. User put a valid input to try to split to array. We can now continue to slice to show the output to user
     userInput = userInput.split(" ");
-    // Take the userInput array and slice it from positon 0 to the lenght of the array in order to display it back to the user as string.
+    // Take the userInput array and slice it from positon 0 to the length of the array in order to display it back to the user as string.
     arraySplit = userInput.slice(0,userInput.length);
   
     window.alert("You have selected: " + arraySplit);
@@ -64,7 +64,7 @@ var generatePassword = function() {
         case 2:
         case 3:
         case 4:
-          //Our array is clean every time we fall through here. We then break to check the next index based on userInput.lenght
+          //Our array is clean every time we fall through here. We then break to check the next index based on userInput.length
           break;
         default: // Anything else that is not our case 1-4 as integers (catch non integers here)
           if (!inputCriteriaInteger) { // We are catching Nulls NaN etc. We will divert it for a !inputCriteriaInteger conditional statement.
@@ -162,34 +162,34 @@ var generatePassword = function() {
   }
 }
 
-function passLenght () { // This functions validate the user input for lenght of characters from 8-128
+function passlength () { // This functions validate the user input for length of characters from 8-128
 
-  // Ask user for lenght of password.
+  // Ask user for length of password.
   window.alert("How long do you want your password to be from 8-128 characters.\n E.g 20");
-  var pLenght = parseInt(window.prompt("Please enter lenght")); // Convert to ingteger to check valid input.
-  if (pLenght < 8 || pLenght > 128) {
+  var plength = parseInt(window.prompt("Please enter length")); // Convert to ingteger to check valid input.
+  if (plength < 8 || plength > 128) {
     
     window.alert("Please enter a valid number between 8-128");
-    passLenght();
+    passlength();
 
-  } else if (!pLenght) { // If null or Nan we will send the user back to the passLenght() function.
+  } else if (!plength) { // If null or Nan we will send the user back to the passlength() function.
     window.alert("Please enter a valid number between 8-128")
-    passLenght(); // Recurcion back to our function the get lenght.
+    passlength(); // Recurcion back to our function the get length.
   } else {
-    window.alert("You have entered a valid lenght of: " + pLenght + "\n Password will now be generated");
-    return pLenght; // We have a valid lengh, lets return our pLenght value.
+    window.alert("You have entered a valid length of: " + plength + "\n Password will now be generated");
+    return plength; // We have a valid length, lets return our plength value.
   }
 }
 
 
-function generatePasswordRandomness(userInput, pLenght) {
+function generatePasswordRandomness(userInput, plength) {
   // Sample will be 8 characters for our test
   // I need it to be from e.g 8--> 0 - 7 for my indexing array to be checked and printed later.
   var valueRandom = 0;
     
   //var counter = 1; // Counter for the while loop
   // We need to at a minimum use the criteria from user first as a "round"
-  // E.g 8 lenght selected by user. First round of user input e.g 1 2, lenght of 2 is the array. Therefore I need sample 8 (lenght selected by user)-2(User-input).
+  // E.g 8 length selected by user. First round of user input e.g 1 2, length of 2 is the array. Therefore I need sample 8 (length selected by user)-2(User-input).
   // Round of 2 (strict random in order) and 6 (random after round)
   var counter = userInput.length // Use as our while loop topmost.
   var UserCounter = userInput.length // Counter to say in line with the user input index to avoid undefines random attempts.
@@ -225,11 +225,11 @@ function generatePasswordRandomness(userInput, pLenght) {
     } 
   }
 
-  // Now that we finish and concatenaed our strinc user input criteria randomness, we move to finish with the rest of the p.lenght. Our example of 8 range is now 6 left or while  2 < 8.
-  while ( counter < pLenght )  {
+  // Now that we finish and concatenaed our strinc user input criteria randomness, we move to finish with the rest of the p.length. Our example of 8 range is now 6 left or while  2 < 8.
+  while ( counter < plength )  {
 
     // Take one item/index from the user input
-    // Lenght is 4 but the index is 3. We need plus 1 to actually inclue the number they selected using the Math.floor and Math.random selected.
+    // length is 4 but the index is 3. We need plus 1 to actually inclue the number they selected using the Math.floor and Math.random selected.
     // Catch any undefined or Nan and reduce the UserCounter in order to randomize. Will probably not be required because of prior validations.
     if (!userInput[(UserCounter - 1)]) {
       // E.g (without the +1) 0 3 but will not include 3, therefore we need +1. That will be 0-4 round down to 3.
@@ -243,7 +243,7 @@ function generatePasswordRandomness(userInput, pLenght) {
       counter += 1;
     }
 
-    // Lenght is 4 but the index is 3. Hence -1. 
+    // length is 4 but the index is 3. Hence -1. 
     //UserCounter used as the random index to tacke the cases which will then randomly get the criteria from the pCriteria object.
     var inputCriteria = userInput[(UserCounter - 1)];
     
@@ -252,7 +252,7 @@ function generatePasswordRandomness(userInput, pLenght) {
 
     switch(inputCriteriaInteger) { // Switch case with inputCriteriaInteger to check our userInput criteria. 
       case 1:
-        // Same logic as above but now for the rest of the lenght provided by user. On our case 8 times.
+        // Same logic as above but now for the rest of the length provided by user. On our case 8 times.
         valueRandom = Math.floor(Math.random() * 26);
         finalPassword += pCriteria.lowercase.criteria[valueRandom];
           break; // Completed, and check for next counter.
@@ -287,14 +287,14 @@ function writePassword() {
   displayPassword = ""; // Impoprtant- used to display the final password on the text area of the HTML element.
   window.alert(" Lets check our password criteria options");
   var password = generatePassword(); // Call the generatePassword(). Global variable used instead for displayPassword.
-  // Once we have achived valid criteria input, we want to tell the user what lenght they want from 8-128 characters.
+  // Once we have achived valid criteria input, we want to tell the user what length they want from 8-128 characters.
   // Call Function to validate length
-  var pLenght = passLenght();
-  // We are back from our passLenght() function with sucess.
-  // We are now ready to gather our final pssword based on criteia and lenght. 
+  var plength = passlength();
+  // We are back from our passlength() function with sucess.
+  // We are now ready to gather our final pssword based on criteia and length. 
   // We then use our global variable displayPassword to store the output of our global finalPassword.
-  // We then pass the valid userInput and Lenght selected by the user.
-  displayPassword = generatePasswordRandomness(userInput,pLenght);
+  // We then pass the valid userInput and length selected by the user.
+  displayPassword = generatePasswordRandomness(userInput,plength);
 
 
   var passwordText = document.querySelector("#password"); // Part of the placholder text querySelectors will be part of later modules.

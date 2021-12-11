@@ -171,7 +171,7 @@ function passLength () { // This functions validate the user input for length of
 }
 
 
-function generatePasswordRandomness(userInput, pLength) {
+function generatePasswordRandomness(userInput, plength) {
   // Sample will be 8 characters for our test
   // I need it to be from e.g 8--> 0 - 7 for my indexing array to be checked and printed later.
   var valueRandom = 0;
@@ -215,7 +215,7 @@ function generatePasswordRandomness(userInput, pLength) {
   }
 
   // Now that we finish and concatenaed our strinc user input criteria randomness, we move to finish with the rest of the p.length. Our example of 8 range is now 6 left or while  2 < 8.
-  while ( counter < pLenght )  {
+  while ( counter < pLength )  {
 
     // Take one item/index from the user input
     // Length is 4 but the index is 3. We need plus 1 to actually inclue the number they selected using the Math.floor and Math.random selected.
@@ -278,12 +278,12 @@ function writePassword() {
   var password = generatePassword(); // Call the generatePassword(). Global variable used instead for displayPassword.
   // Once we have achived valid criteria input, we want to tell the user what length hey want from 8-128 characters.
   // Call Function to validate length
-  var pLenght = passLenght();
+  var pLength = passLength();
   // We are back from our passLenght() function with sucess.
   // We are now ready to gather our final pssword based on criteia and length. 
   // We then use our global variable displayPassword to store the output of our global finalPassword.
   // We then pass the valid userInput and Length selected by the user.
-  displayPassword = generatePasswordRandomness(userInput,pLenght);
+  displayPassword = generatePasswordRandomness(userInput,pLength);
 
 
   var passwordText = document.querySelector("#password"); // Part of the placholder text querySelectors will be part of later modules.

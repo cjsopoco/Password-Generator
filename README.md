@@ -5,4 +5,4 @@ I WANT to randomly generate a password that meets certain criteria
 SO THAT I can create a strong password that provides greater security
 
 Github link https://github.com/cjsopoco/Password-Generator
-Deploy link 
+Deploy link https://cjsopoco.github.io/Password-Generator/

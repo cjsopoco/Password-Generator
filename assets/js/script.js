@@ -142,7 +142,7 @@ var generatePassword = function() {
           } else if (round1Pop === round2Shift) {
             window.alert("Duplication detected, please check criteria rules.");
             generatePassword();
-          } // Should not be needed but left in case as it was done on previou if statement.
+          }
             else if (round1Shift === round1Pop) {
             window.alert("Duplication detected, please check criteria rules.");
             generatePassword();
@@ -181,14 +181,14 @@ function passlength () { // This functions validate the user input for length
 
 
 function generatePasswordRandomness(userInput, plength) {
-  // Sample will be 8 characters for our test
+  // Sample will be 5 characters for our test
 
   var valueRandom = 0;
     
   //var counter = 1; // Counter for the while loop
   // We need to at a minimum use the criteria from user first as a "round"
-  // E.g 8 length selected by user. First round of user input e.g 1 2, length of 2 is the array. Therefore I need sample 8 (length selected by user)-2(User-input).
-  // Round of 2 (strict random in order) and 6 (random after round)
+  // E.g 5 length selected by user. First round of user input e.g 1 2, length of 2 is the array. Therefore I need sample 5 (length selected by user)-2(User-input).
+  // Round of 2 and 6 
   var counter = userInput.length 
   var UserCounter = userInput.length 
   var finalPassword = "";  // Used to stored concatenate the strings together to finally assign to our displayPassword.
@@ -223,11 +223,11 @@ function generatePasswordRandomness(userInput, plength) {
     } 
   }
 
-  // finish with the rest of the p.length. Our example of 8 range is now 6 left or while  2 < 8.
+  // finish with the rest of the p.length. 2 < 8.
   while ( counter < plength )  {
 
     // Take one item/index from the user input
-    // length is 4 but the index is 3. We need plus 1 to actually inclue the number they selected using the Math.floor and Math.random selected.
+    // length is 4 the index is 3. We need plus 1 to actually inclue the number they selected using the Math.floor and Math.random 
     // Catch any undefined or Nan and reduce the UserCounter in order to randomize. Will probably not be required because of prior validations.
     if (!userInput[(UserCounter - 1)]) {
       // E.g (without the +1) 0 3 but will not include 3, therefore we need +1. That will be 0-4 round down to 3.
@@ -236,12 +236,12 @@ function generatePasswordRandomness(userInput, plength) {
       counter += 1;
   
     } else {
-      // Generate randomness for first round of randomness and add the counter for the random switch cases 
+      // Generate random for first round of random and add the counter for the random switch cases 
       UserCounter = Math.floor( ( (Math.random() * userInput.length) + 1) );
       counter += 1;
     }
 
-    // length is 4 but the index is 3. Hence -1. 
+    
     //UserCounter used as the random index to tacke the cases which will then randomly get the criteria from the pCriteria object.
     var inputCriteria = userInput[(UserCounter - 1)];
     
